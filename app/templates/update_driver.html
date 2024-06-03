@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Driver Information</title>
+</head>
+<body>
+    <h1>Update Driver Information</h1>
+    <form action="/driver/update/{{ driver_id }}" method="post">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ driver.name }}" required><br>
+
+        <label for="license_number">License Number:</label><br>
+        <input type="text" id="license_number" name="license_number" value="{{ driver.license_number }}" required><br>
+        <br>
+        <input type="submit" value="Update Driver">
+    </form>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        body {
+            color: white;
+            font-family: Arial, sans-serif;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            background: url('/static/Uber.jpeg');
+        }
+        h1 {
+            align-items: top;
+        }
+
+        .login-container {
+            background-color: #fffbfb;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(48, 48, 48, 0.1);
+            text-align: center;
+        }
+
+        input {
+            margin-bottom: 40px;
+            padding: 15px;
+            width: 90%;
+            box-sizing: border-box;
+        }
+
+        button {
+            padding: 8px 20px;
+            background-color: #0b0b0b;
+            color: #fdfdfd;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #3f3f41;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0f1010;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .button:hover {
+            background-color: #414242;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>Login to Uber</h1>
+    <form action="/login" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+        <br>
+        <br>
+        <button onclick="window.location.href='/register';">Register Now</button>
+    </form>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Uber clone</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background: url('/static/Uber.jpeg');
+            background-size: cover;
+            backdrop-filter: blur(10px);
+            color: #ffffff;
+        }
+        .navbar {
+            backdrop-filter: blur(5px);
+            background: rgba(12, 12, 12, 0.5);
+            overflow: hidden;
+            padding: 10px 20px;
+        }
+        .navbar a {
+            float: left;
+            color: #fcfbfb;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            line-height: 25px;
+            border-radius: 4px;
+        }
+        .navbar a.logo {
+            font-size: 25px;
+            font-weight: bold;
+        }
+        .navbar a:hover {
+            background-color: #0e0d0d;
+            color: rgb(248, 245, 245);
+        }
+        .navbar a.active {
+            background-color: #0a0a0a;
+            color: white;
+        }
+        .navbar a.right {
+            float: right;
+        }
+        .main-content {
+            text-align: center;
+            padding: 50px;
+            margin-top: 20px;
+        }
+        .main-content h1 {
+            font-size: 50px;
+            font-weight: bold;
+        }
+        .main-content button {
+            padding: 16px 40px;
+            background-color: #0f0e0e;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+        .main-content button:hover {
+            background-color: #060606;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home" class="logo">Uber</a>
+        <a href="#company">Company</a>
+        <a href="#about">About</a>
+        <a href="#help">Help</a>
+        <a href="#products" class="right">Products</a>
+        <a href="/login" class="right">Log in</a>
+        <a href="/register" class="right">Register</a>
+    </div>
+    
+    <div class="main-content">
+        <h1>Get in the driver’s seat and get paid</h1>
+        <p>Drive on the platform with the largest network of active riders.</p>
+        <button onclick="window.location.href='/register';">Sign up to drive</button>
+        <p>Learn more about driving and delivering</p>
+    </div>
+</body>
+</html>

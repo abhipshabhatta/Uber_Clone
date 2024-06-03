@@ -1,0 +1,11 @@
+stripe==2.55.0
+Flask==1.1.2
+python-dotenv==0.17.0
+
+Flask: The web framework used for the application.
+Flask-PyMongo: An extension for Flask to work with MongoDB.
+Flask-WTF: For handling forms in Flask.
+WTForms: Required by Flask-WTF for form creation and validation.
+pymongo: MongoDB driver for Python.
+geopy: For performing geolocation tasks.
+folium: For creating and manipulating map renderings.

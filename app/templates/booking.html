@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ride Booking</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  background: url('/static/Uber.jpeg');
+}
+.left-panel {
+  flex: 1;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 50px;
+}
+.right-panel {
+  flex: 1;
+  overflow: hidden;
+}
+#booking-form {
+  max-width: 400px;
+}
+h1 {
+  font-size: 2em;
+}
+input[type="text"] {
+  width: 100%;
+  padding: 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 5px;
+}
+.button-container {
+  display: flex;
+  flex-direction: column;
+}
+button {
+  padding: 15px;
+  background-color: #343333;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: #515152;
+}
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+</style>
+</head>
+<body>
+
+<div class="left-panel">
+  <h1>Go anywhere with Uber</h1>
+  <form action="{{ url_for('booking') }}" method="post">
+    <input type="text" id="pickup-location" name="pickup_location" placeholder="Enter location" required>
+    <input type="text" id="dropoff-location" name="dropoff_location" placeholder="Enter destination" required>
+    <div class="button-container">
+      <button type="submit">Check rides</button>
+    </div>
+  </form>
+</div>
+
+<div class="right-panel">
+  <iframe src="{{ url_for('static', filename='Map.html') }}" width="600" height="450"></iframe>
+</div>
+
+<script>
+document.getElementById('booking-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  var pickupLocation = document.getElementById('pickup-location').value;
+  var dropoffLocation = document.getElementById('dropoff-location').value;
+
+  console.log('Pickup Location:', pickupLocation);
+  console.log('Dropoff Location:', dropoffLocation);
+
+  alert('Ride booked from ' + pickupLocation + ' to ' + dropoffLocation); 
+});
+
+document.getElementById('price-button').addEventListener('click', function() {
+  window.location.href = 'price_ride.html';
+});
+</script>
+
+</body>
+</html>

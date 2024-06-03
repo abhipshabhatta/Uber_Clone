@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: url('/static/Uber.jpeg');
+}
+.container {
+    position: relative;
+    max-width: 700px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.container header {
+  font-size: 1.5rem;
+  color: #333;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 30px;
+  
+}
+.form-group {
+    color:rgb(244, 244, 247);
+    margin-bottom: 15px;
+}
+
+.form-group label {
+  color: #0a0a0a;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #0a0a0a;
+    border-radius: 4px;
+}
+.form .input-box,
+.form .driverFields {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.input-box label, 
+.driverFields label {
+    color: #333;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form :where(.input-box input, .driverFields input, .select-box) {
+    position: relative;
+    height: 50px;
+    width: 100%;
+    outline: none;
+    font-size: 1rem;
+    color: #0e0e0e;
+    margin-top: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 0 5px;
+}
+
+.input-box input:focus,
+.driverFields input:focus {
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column, 
+.form .gender-box, 
+.form .driverFields, 
+.form .input-box {
+    margin-top: 20px;
+}
+.gender-box h3 {
+  color: #050505;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
+  display: flex;
+  align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(11, 11, 12);
+}
+.form :where(.gender input, .gender label) {
+  cursor: pointer;
+}
+.gender label {
+  color: #080808;
+}
+.address :where(input, .select-box) {
+  margin-top: 15px;
+}
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #0e0d0d;
+  font-size: 1rem;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #f7f5f5;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background: rgb(14, 14, 16);
+}
+.form button:hover {
+  background: rgb(48, 48, 48);
+}
+</style>
+<body>
+  <section class="container">
+      <header>Register</header>
+      <form action="/register" method="post" class="form" id="registrationForm">
+          <div class="input-box">
+              <label>Full Name</label>
+              <input type="text" name="fullName" placeholder="Enter your full name" required />
+          </div>
+          <div class="input-box">
+              <label>Email Address</label>
+              <input type="email" name="email" placeholder="Enter your email address" required />
+              <label for="password">Password</label>
+              <input type="password" name="password" placeholder="Enter Password" required />
+          </div>
+          <button type="submit">Submit</button>
+      </form>
+  </section>
+</body>
+</html>

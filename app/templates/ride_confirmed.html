@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ride Confirmed</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+header {
+    background-color: #f5f5f5;
+    padding: 10px 20px;
+    text-align: right;
+}
+
+.logout-button a {
+    color: #232424;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.confirmation-message h1 {
+    color: rgb(24, 25, 24);
+    margin-top: 50px;
+}
+
+.map-container {
+    margin: 20px auto;
+    width: 80%;
+    height: 400px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px;
+}
+
+.map-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+}
+
+footer {
+    background-color: #f5f5f5;
+    padding: 10px 20px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logout-button">
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="confirmation-message">
+            <h1>Your Ride is Confirmed!</h1>
+        </div>
+        <div class="map-placeholder">
+            <iframe src="{{ url_for('static', filename='Map.html') }}" width="600" height="450"></iframe>
+          </div>
+        </div>
+    </main>
+
+</body>
+</html>

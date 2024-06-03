@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ride Selection</title>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+<style>
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: url('/static/Uber.jpeg');
+}
+
+.header {
+  background-color: #fff;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.profile-link a {
+  text-decoration: none;
+  color: #333;
+}
+
+.ride-selection {
+  width: 300px;
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.ride-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #f7f7f7;
+  border-radius: 4px;
+}
+
+.ride-info h3 {
+  margin: 0;
+}
+
+.ride-info p {
+  margin: 5px 0 0;
+  font-size: 0.9em;
+}
+
+.price {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#map {
+  height: 500px;
+  width: calc(100% - 440px);
+  position: absolute;
+  top: 80px;
+  right: 20px;
+}
+
+#request-ride {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+
+#request-ride:hover {
+  background-color: #333;
+}
+#map {
+  height: 600px;
+  width: 65%;
+  position: center;
+  top: 60px;
+  right: 30px;
+}
+.map-iframe {
+  height: 100%;
+  width: 100%;
+  border: none;
+}
+
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="container" action="/price_ride">
+    <div class="logo">Uber</div>
+    <div class="profile-link"><a href="profile_page.html">My Profile</a></div>
+  </div>
+</div>
+
+<div class="ride-selection">
+  <h2>Choose a ride</h2>
+  <form action="{{ url_for('price_ride') }}" method="post">
+    <div class="ride-option" onclick="updateRequestButton('Green')">
+    <div class="ride-info">
+      <h3>Green</h3>
+      <p>Electric and hybrid vehicles</p>
+    </div>
+    <div class="price">€20.81</div>
+  </div>
+  <div class="ride-option" onclick="updateRequestButton('UberX')">
+    <div class="ride-info">
+      <h3>UberX</h3>
+      <p>Affordable, everyday rides</p>
+    </div>
+    <div class="price">€25.20</div>
+  </div>
+  <div class="ride-option" onclick="updateRequestButton('Van')">
+    <div class="ride-info">
+      <h3>Van</h3>
+      <p>High end cars for 6</p>
+    </div>
+    <div class="price">€40.11</div>
+  </div>
+    <button type="submit" id="request-ride" class="button">Request Ride</button>
+</form>
+</div>
+
+<div id="map">
+  <iframe src="{{ url_for('static', filename='Map.html') }}" width="900" height="600"></iframe>
+</div>
+</body>
+</html>
