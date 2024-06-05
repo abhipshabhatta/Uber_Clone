@@ -77,13 +77,17 @@ input {
 </head>
 <body>
   <div>
-  <form action="{{ url_for('payment') }}" method="post">
+  <form id="payment-form" action="{{ url_for('payment') }}" method="post">
     <h1>Payment</h1>
+    <input type="hidden" name="pickup_location" value="{{ request.form['pickup_location'] }}">
+    <input type="hidden" name="dropoff_location" value="{{ request.form['dropoff_location'] }}">
+    <input type="hidden" name="ride_type" value="{{ request.form['ride_type'] }}">
+    <input type="hidden" name="price" value="{{ request.form['price'] }}">
     <div id="card-element"></div>
     <!--it displays card errors-->
     <div id="card-errors" role="alert"></div>
     <button id="submit">Pay & Confirm ride</button>
-
+  </form>
 </div>
 <script>
 // it add publishable key from stripe client.
@@ -126,7 +130,6 @@ function stripeTokenHandler(token) {
     form.appendChild(hiddenInput);
     form.submit();
     }
-    </script>
-
+</script>
 </body>
 </html>

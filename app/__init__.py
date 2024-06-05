@@ -6,7 +6,7 @@ def create_app():
 
     # App configuration
     app.config['SECRET_KEY'] = 'azerty'
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/uber_user"
+    app.config["MONGO_URI"] = "mongodb+srv://abhipshabhatta:<@bheeps@123>@uberclone.qqr6qbm.mongodb.net/uber_clone_db?retryWrites=true&w=majority"
 
     mongo = PyMongo(app)
 

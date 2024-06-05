@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ride Selection</title>
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-
+<title>Price Ride</title>
 <style>
 body, html {
   height: 100%;
@@ -92,25 +90,18 @@ body, html {
 #request-ride:hover {
   background-color: #333;
 }
-#map {
-  height: 600px;
-  width: 65%;
-  position: center;
-  top: 60px;
-  right: 30px;
-}
+
 .map-iframe {
   height: 100%;
   width: 100%;
   border: none;
 }
-
 </style>
 </head>
 <body>
 
 <div class="header">
-  <div class="container" action="/price_ride">
+  <div class="container">
     <div class="logo">Uber</div>
     <div class="profile-link"><a href="profile_page.html">My Profile</a></div>
   </div>
@@ -118,34 +109,41 @@ body, html {
 
 <div class="ride-selection">
   <h2>Choose a ride</h2>
-  <form action="{{ url_for('price_ride') }}" method="post">
-    <div class="ride-option" onclick="updateRequestButton('Green')">
-    <div class="ride-info">
-      <h3>Green</h3>
-      <p>Electric and hybrid vehicles</p>
+  <form id="ride-form" action="{{ url_for('request_ride') }}" method="post">
+    <input type="hidden" name="pickup_location" value="{{ request.args.get('pickup_location') }}">
+    <input type="hidden" name="dropoff_location" value="{{ request.args.get('dropoff_location') }}">
+    <input type="hidden" name="price" value="{{ price }}">
+    <div class="ride-option">
+      <input type="radio" id="green" name="ride_type" value="Green" required>
+      <label for="green" class="ride-info">
+        <h3>Green</h3>
+        <p>Electric and hybrid vehicles</p>
+      </label>
+      <div class="price">€{{ price }}</div>
     </div>
-    <div class="price">€20.81</div>
-  </div>
-  <div class="ride-option" onclick="updateRequestButton('UberX')">
-    <div class="ride-info">
-      <h3>UberX</h3>
-      <p>Affordable, everyday rides</p>
+    <div class="ride-option">
+      <input type="radio" id="uberx" name="ride_type" value="UberX" required>
+      <label for="uberx" class="ride-info">
+        <h3>UberX</h3>
+        <p>Affordable, everyday rides</p>
+      </label>
+      <div class="price">€{{ price }}</div>
     </div>
-    <div class="price">€25.20</div>
-  </div>
-  <div class="ride-option" onclick="updateRequestButton('Van')">
-    <div class="ride-info">
-      <h3>Van</h3>
-      <p>High end cars for 6</p>
+    <div class="ride-option">
+      <input type="radio" id="van" name="ride_type" value="Van" required>
+      <label for="van" class="ride-info">
+        <h3>Van</h3>
+        <p>High end cars for 6</p>
+      </label>
+      <div class="price">€{{ price }}</div>
     </div>
-    <div class="price">€40.11</div>
-  </div>
-    <button type="submit" id="request-ride" class="button">Request Ride</button>
-</form>
+    <button type="submit" id="request-ride">Request Ride</button>
+  </form>
 </div>
 
 <div id="map">
   <iframe src="{{ url_for('static', filename='Map.html') }}" width="900" height="600"></iframe>
 </div>
+
 </body>
 </html>

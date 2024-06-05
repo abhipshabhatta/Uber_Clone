@@ -1,5 +1,4 @@
-from route import run_app
-from app import app
+from app.route import app
 
 if __name__ == '__main__':
-    run_app()
+    app.run(debug=True)

@@ -68,11 +68,11 @@ iframe {
 
 <div class="left-panel">
   <h1>Go anywhere with Uber</h1>
-  <form action="{{ url_for('booking') }}" method="post">
-    <input type="text" id="pickup-location" name="pickup_location" placeholder="Enter location" required>
-    <input type="text" id="dropoff-location" name="dropoff_location" placeholder="Enter destination" required>
+  <form id="booking-form" action="{{ url_for('price_ride') }}" method="get">
+    <input type="text" id="pickup-location" name="pickup_location" placeholder="Enter pickup location" required>
+    <input type="text" id="dropoff-location" name="dropoff_location" placeholder="Enter dropoff location" required>
     <div class="button-container">
-      <button type="submit">Check rides</button>
+      <button type="submit">Check Price</button>
     </div>
   </form>
 </div>
@@ -80,24 +80,6 @@ iframe {
 <div class="right-panel">
   <iframe src="{{ url_for('static', filename='Map.html') }}" width="600" height="450"></iframe>
 </div>
-
-<script>
-document.getElementById('booking-form').addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  var pickupLocation = document.getElementById('pickup-location').value;
-  var dropoffLocation = document.getElementById('dropoff-location').value;
-
-  console.log('Pickup Location:', pickupLocation);
-  console.log('Dropoff Location:', dropoffLocation);
-
-  alert('Ride booked from ' + pickupLocation + ' to ' + dropoffLocation); 
-});
-
-document.getElementById('price-button').addEventListener('click', function() {
-  window.location.href = 'price_ride.html';
-});
-</script>
 
 </body>
 </html>

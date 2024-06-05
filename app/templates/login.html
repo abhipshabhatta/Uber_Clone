@@ -6,66 +6,78 @@
         body {
             color: white;
             font-family: Arial, sans-serif;
+            display: flex;
             justify-content: center;
             align-items: center;
-            height: 50vh;
+            height: 100vh;
             background: url('/static/Uber.jpeg');
-        }
-        h1 {
-            align-items: top;
+            background-size: cover;
+            margin: 0;
         }
 
         .login-container {
-            background-color: #fffbfb;
-            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(48, 48, 48, 0.1);
             text-align: center;
+            width: 400px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
         }
 
         input {
-            margin-bottom: 40px;
-            padding: 15px;
-            width: 90%;
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
             box-sizing: border-box;
+            border: none;
+            border-radius: 3px;
         }
 
         button {
-            padding: 8px 20px;
+            padding: 10px 20px;
             background-color: #0b0b0b;
             color: #fdfdfd;
             border: none;
             border-radius: 3px;
             cursor: pointer;
+            width: 100%;
         }
+
         button:hover {
             background-color: #3f3f41;
         }
-        .button {
-            display: inline-block;
-            padding: 10px 20px;
+
+        .register-button {
+            margin-top: 20px;
             background-color: #0f1010;
-            color: white;
-            border-radius: 5px;
-            text-decoration: none;
-        }
-        .button:hover {
-            background-color: #414242;
         }
 
+        .register-button:hover {
+            background-color: #414242;
+        }
     </style>
 </head>
 <body>
-    <h1>Login to Uber</h1>
-    <form action="/login" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-        <button type="submit">Login</button>
-        <br>
-        <br>
-        <button onclick="window.location.href='/register';">Register Now</button>
-    </form>
+    <div class="login-container">
+        <h1>Login as User</h1>
+        <form action="/login" method="post">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+            <button type="button" class="register-button" onclick="window.location.href='/register';">Register Now</button>
+        </form>
+    </div>
 </body>
 </html>
