@@ -11,7 +11,7 @@ def create_app():
     mongo = PyMongo(app)
 
     # Register routes
-    from .route import configure_routes
-    configure_routes(app)
+    from .app import app as main_app
+    app.register_blueprint(main_app)
 
     return app

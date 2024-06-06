@@ -7,6 +7,7 @@ from app.price_model import PriceModel
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import ObjectId
 
+
 app = Flask(__name__)
 app.secret_key = 'azerty' 
 
@@ -21,6 +22,7 @@ price_model = PriceModel(db_client=mongo_client)
 @app.route('/')
 def index():
     return render_template('index.html')
+
 
 @app.route('/add_driver', methods=['GET', 'POST'])
 def add_driver():

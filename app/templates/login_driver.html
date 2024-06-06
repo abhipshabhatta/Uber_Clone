@@ -1,19 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Login Driver</title>
+    <title>Login</title>
+    <style>
+        body {
+            color: white;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('/static/Uber.jpeg');
+            background-size: cover;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(48, 48, 48, 0.1);
+            text-align: center;
+            width: 400px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 5px;
+        }
+
+        input {
+            margin-bottom: 20px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 3px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #0b0b0b;
+            color: #fdfdfd;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #3f3f41;
+        }
+
+        .register-button {
+            margin-top: 20px;
+            background-color: #0f1010;
+        }
+
+        .register-button:hover {
+            background-color: #414242;
+        }
+    </style>
 </head>
 <body>
-    <h1>Login as Driver</h1>
-    <form action="{{ url_for('login_driver') }}" method="post">
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br>
-
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" required><br>
-
-        <input type="submit" value="Login">
-    </form>
+    <div class="login-container">
+        <h1>Login as Driver</h1>
+        <form action="/login" method="post">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            <button type="submit">Login</button>
+            <button type="button" class="register-button" onclick="window.location.href='/register_driver';">Register Now</button>
+        </form>
+    </div>
 </body>
 </html>

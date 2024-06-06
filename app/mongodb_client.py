@@ -11,3 +11,4 @@ class MongoDBClient:
 
     def get_database(self):
         return self.db
+

@@ -40,13 +40,6 @@ def price_ride():
     return render_template('price_ride.html')
 
 
-@app.route('/payment', methods=['GET', 'POST'])
-def payment():
-    if request.method == 'POST':
-        # payment
-        return redirect(url_for('ride_confirmed'))
-    return render_template('payment.html')
-
 @app.route('/ride_confirmed')
 def ride_confirmed():
     return render_template('ride_confirmed.html')
@@ -58,3 +51,7 @@ def logout():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
+
