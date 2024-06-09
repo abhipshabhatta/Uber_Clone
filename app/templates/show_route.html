@@ -80,24 +80,26 @@
             <p><strong>Dropoff Location:</strong> {{ dropoff_location }}</p>
             <p><strong>Ride Type:</strong> {{ ride_type }}</p>
             <p><strong>Price:</strong> €{{ price }}</p>
+            <p>Recommended Path: {{ recommended_path }}</p>
+
         </div>
         <div id="map" class="map"></div>
     </div>
 
     <script>
-        var map = L.map('map').setView([48.8566, 2.3522], 6); // Example coordinates, you should replace them with actual coordinates
+        var map = L.map('map').setView([48.8566, 2.3522], 6); 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
         }).addTo(map);
 
-        var pickupMarker = L.marker([48.8566, 2.3522]).addTo(map) // Example coordinates, replace with actual
+        var pickupMarker = L.marker([48.8566, 2.3522]).addTo(map) 
             .bindPopup('Pickup Location: {{ pickup_location }}').openPopup();
-        var dropoffMarker = L.marker([45.764, 4.8357]).addTo(map) // Example coordinates, replace with actual
+        var dropoffMarker = L.marker([45.764, 4.8357]).addTo(map) 
             .bindPopup('Dropoff Location: {{ dropoff_location }}').openPopup();
 
         var latlngs = [
-            [48.8566, 2.3522], // Example coordinates, replace with actual
-            [45.764, 4.8357] // Example coordinates, replace with actual
+            [48.8566, 2.3522], 
+            [45.764, 4.8357] 
         ];
         var polyline = L.polyline(latlngs, {color: 'blue'}).addTo(map);
     </script>
