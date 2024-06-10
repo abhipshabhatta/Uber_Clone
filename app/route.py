@@ -6,13 +6,18 @@ from app.user_model import UserModel
 from app.price_model import PriceModel
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import ObjectId
+from redis import Redis  # Correct import for Redis client
 
-
+# Initialize Flask app
 app = Flask(__name__)
-app.secret_key = 'azerty' 
+app.secret_key = 'azerty'
 
+# Redis client setup
+redis_client = Redis(host='localhost', port=6380, db=0)  # Corrected Redis client initialization
+
+# MongoDB client setup
 username = 'abhipshabhatta'
-password = '@bheeps@123' 
+password = '@bheeps@123'
 mongo_client = MongoDBClient(username=username, password=password)
 ride_model = RideModel(db_client=mongo_client)
 driver_model = DriverModel(db_client=mongo_client)
@@ -22,7 +27,6 @@ price_model = PriceModel(db_client=mongo_client)
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/add_driver', methods=['GET', 'POST'])
 def add_driver():
@@ -62,7 +66,7 @@ def booking():
     if request.method == 'POST':
         pickup_location = request.form['pickup_location']
         dropoff_location = request.form['dropoff_location']
-        # Redirect to price_ride with locations 
+        # Redirect to price_ride with locations
         return redirect(url_for('price_ride', pickup_location=pickup_location, dropoff_location=dropoff_location))
     return render_template('booking.html')
 
@@ -72,8 +76,21 @@ def price_ride():
     pickup_location = request.args.get('pickup_location')
     dropoff_location = request.args.get('dropoff_location')
     if pickup_location and dropoff_location:
-        price = price_model.calculate_price(pickup_location, dropoff_location)
+        price = get_cached_price(pickup_location, dropoff_location)
     return render_template('price_ride.html', price=price)
+
+def get_cached_price(start_location, end_location):
+    cache_key = f"price:{start_location}:{end_location}"
+    cached_price = redis_client.get(cache_key)
+    if cached_price:
+        return float(cached_price)
+
+    # If not in cache, calculate the price
+    price = price_model.calculate_price(start_location, end_location)
+
+    # Store the calculated price in cache with an expiry time (e.g., 10 minutes)
+    redis_client.setex(cache_key, 600, price)
+    return price
 
 @app.route('/request_ride', methods=['POST'])
 def request_ride():
@@ -178,7 +195,6 @@ def accept_ride(ride_id):
     ride = ride_model.get_ride_by_id(ride_id)
     ride_model.update_ride_status(ride_id, 'accepted')
     return redirect(url_for('show_route', pickup_location=ride['pickup_location'], dropoff_location=ride['dropoff_location'], ride_type=ride['ride_type'], price=ride['price']))
-
 
 @app.route('/logout')
 def logout():
