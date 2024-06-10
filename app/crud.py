@@ -2,9 +2,11 @@ from bson import ObjectId
 from flask import Flask, request, jsonify, redirect, url_for
 from flask_pymongo import PyMongo
 
+
 app = Flask(__name__)
-app.config["MONGO_URI"] = "mongodb://localhost:27017/drivers"
+app.config["MONGO_URI"] = "mongodb+srv://abhipshabhatta:<@bheeps@123>@uberclone.qqr6qbm.mongodb.net/"
 mongo = PyMongo(app)
+
 
 @app.route('/driver/add', methods=['POST'])
 def add_driver():

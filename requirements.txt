@@ -5,3 +5,6 @@ flask_pymongo==2.3.0
 Jinja2==2.11.3
 MarkupSafe==1.1.1
 itsdangerous==1.1.0
+redis
+flask-redis
+Flask-Session

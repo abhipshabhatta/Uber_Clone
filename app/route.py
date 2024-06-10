@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash
 from app.mongodb_client import MongoDBClient
 from app.ride_model import RideModel
 from app.driver_model import DriverModel
@@ -6,11 +6,10 @@ from app.user_model import UserModel
 from app.price_model import PriceModel
 from werkzeug.security import generate_password_hash, check_password_hash
 from bson import ObjectId
-from redis import Redis  # Correct import for Redis client
 
-# Initialize Flask app
+
 app = Flask(__name__)
-app.secret_key = 'azerty'
+app.secret_key = 'azerty' 
 
 # Redis client setup
 redis_client = Redis(host='localhost', port=6380, db=0)  # Corrected Redis client initialization
@@ -23,6 +22,9 @@ ride_model = RideModel(db_client=mongo_client)
 driver_model = DriverModel(db_client=mongo_client)
 user_model = UserModel(db_client=mongo_client)
 price_model = PriceModel(db_client=mongo_client)
+
+# Initialize the Neo4j client
+neo4j_client = Neo4jClient(uri="bolt://localhost:7687", user="neo4j", password="123456789")
 
 @app.route('/')
 def index():
@@ -99,17 +101,26 @@ def request_ride():
     ride_type = request.form.get('ride_type')
     price = request.form.get('price')
 
-    print(f"pickup_location: {pickup_location}, dropoff_location: {dropoff_location}, ride_type: {ride_type}, price: {price}")
+    # Integrate Neo4j to find the recommended path
+    print(f"Requesting path from {pickup_location} to {dropoff_location}")
+    path = neo4j_client.find_shortest_path(pickup_location, dropoff_location)
+    if path:
+        nodes = [record for record in path['nodes']]
+        recommended_path = " -> ".join(nodes)
+    else:
+        recommended_path = "No recommended path found"
+    print(f"Recommended path: {recommended_path}")
 
     ride_data = {
         "pickup_location": pickup_location,
         "dropoff_location": dropoff_location,
         "ride_type": ride_type,
         "price": price,
-        "status": "requested"
+        "status": "requested",
+        "recommended_path": recommended_path  # Store the recommended path
     }
     ride_id = ride_model.create_ride(ride_data)
-    return redirect(url_for('show_route', pickup_location=pickup_location, dropoff_location=dropoff_location, ride_type=ride_type, price=price))
+    return redirect(url_for('show_route', pickup_location=pickup_location, dropoff_location=dropoff_location, ride_type=ride_type, price=price, recommended_path=recommended_path))
 
 @app.route('/show_route')
 def show_route():
@@ -117,7 +128,8 @@ def show_route():
     dropoff_location = request.args.get('dropoff_location')
     ride_type = request.args.get('ride_type')
     price = request.args.get('price')
-    return render_template('show_route.html', pickup_location=pickup_location, dropoff_location=dropoff_location, ride_type=ride_type, price=price)
+    recommended_path = request.args.get('recommended_path')
+    return render_template('show_route.html', pickup_location=pickup_location, dropoff_location=dropoff_location, ride_type=ride_type, price=price, recommended_path=recommended_path)
 
 @app.route('/ride_confirmed')
 def ride_confirmed():
@@ -134,10 +146,12 @@ def login():
         if user and check_password_hash(user['password'], password):
             session['user_id'] = str(user['_id'])
             flash('Login successful', 'success')
+            print(f"Session data: {session}")
             return redirect(url_for('booking'))  # Redirect to booking page
         else:
             flash('Invalid email or password', 'danger')
     return render_template('login.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -195,6 +209,7 @@ def accept_ride(ride_id):
     ride = ride_model.get_ride_by_id(ride_id)
     ride_model.update_ride_status(ride_id, 'accepted')
     return redirect(url_for('show_route', pickup_location=ride['pickup_location'], dropoff_location=ride['dropoff_location'], ride_type=ride['ride_type'], price=ride['price']))
+
 
 @app.route('/logout')
 def logout():
